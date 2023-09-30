@@ -1,77 +1,62 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-
-import Colors from '../constants/Colors';
-import { ExternalLink } from './ExternalLink';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
-
+import React, { useState, useEffect } from "react";
+import { Graph } from "./GraphComponent.web";
 
 export default function EditScreenInfo({ path }: { path: string }) {
+  const [readings, setReadings] = useState<string[]>([]);
+  const [timestamps, setTimestamps] = useState<string[]>([]);
+  const [selectedDomain, setSelectedDomain] = useState<any>(null);
+  const [zoomDomain, setZoomDomain] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = () => {
+      const cloudFunctionUrl =
+        "https://europe-west1-analog-delight-400119.cloudfunctions.net/pull-data";
+
+      fetch(cloudFunctionUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: "arduin0" }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success && data.readings.length > 0) {
+            const readingsFromDB = data.readings.map((r: any) => r.reading);
+            const timestampsFromDB = data.readings.map((r: any) => r.timestamp);
+            setReadings(readingsFromDB);
+            setTimestamps(timestampsFromDB);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    fetchData();
+    const intervalId = setInterval(fetchData, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const handleZoom = (domain: any) => {
+    setSelectedDomain(domain);
+  };
+
+  const handleBrush = (domain: any) => {
+    setZoomDomain(domain);
+  };
+
   return (
-    <View>
-      <View style={styles.getStartedContainer}>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Open up the code for this screen:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)">
-          <MonoText>{path}</MonoText>
-        </View>
-
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Change any of the text, save the file, and your app will automatically update.
-        </Text>
-      </View>
-
-      <View style={styles.helpContainer}>
-        <ExternalLink
-          style={styles.helpLink}
-          href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-            Tap here if your app doesn't automatically update after making changes
-          </Text>
-        </ExternalLink>
-      </View>
-    </View>
+    <div>
+      <Graph
+        readings={readings}
+        timestamps={timestamps}
+        selectedDomain={selectedDomain}
+        zoomDomain={zoomDomain}
+        onZoomDomainChange={handleZoom}
+        onBrushDomainChange={handleBrush}
+      />
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: 'center',
-  },
-});
