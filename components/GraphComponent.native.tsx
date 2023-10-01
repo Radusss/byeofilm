@@ -1,91 +1,33 @@
-//GraphComponent.tsx
 import React from "react";
-import { View } from "react-native";
-import {
-  VictoryChart,
-  VictoryLine,
-  VictoryAxis,
-  VictoryZoomContainer,
-  VictoryBrushContainer,
-} from "victory-native";
+import { View, Text, StyleSheet } from "react-native";
 
 interface GraphProps {
   readings: string[];
   timestamps: string[];
-  selectedDomain: any;
-  zoomDomain: any;
-  onZoomDomainChange(domain: any): void;
-  onBrushDomainChange(domain: any): void;
 }
 
-export const Graph: React.FC<GraphProps> = ({
-  readings,
-  timestamps,
-  selectedDomain,
-  zoomDomain,
-  onZoomDomainChange,
-  onBrushDomainChange,
-}) => {
-  // Convert data to the format expected by VictoryLine
-  const data = timestamps.map((timestamp, index) => {
-    return {
-      x: new Date(timestamp), // converting timestamp to Date object
-      y: parseFloat(readings[index]), // converting reading to number
-    };
-  });
+export const Graph: React.FC<GraphProps> = ({ readings, timestamps }) => {
+  // Check if readings and timestamps are not empty
+  const firstReading = readings.length > 0 ? readings[0] : "No readings";
+  const firstTimestamp =
+    timestamps.length > 0 ? timestamps[0] : "No timestamps";
 
   return (
     <View>
-      <VictoryChart
-        width={550}
-        height={300}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryZoomContainer
-            responsive={false}
-            //zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={onZoomDomainChange}
-          />
-        }
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: "tomato" },
-          }}
-          data={data}
-        />
-      </VictoryChart>
-
-      <VictoryChart
-        width={550}
-        height={90}
-        scale={{ x: "time" }}
-        padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-        containerComponent={
-          <VictoryBrushContainer
-            responsive={false}
-            brushDomain={selectedDomain}
-            onBrushDomainChange={onBrushDomainChange}
-            brushStyle={{
-              stroke: "transparent",
-              fill: "white",
-              fillOpacity: 0.1,
-            }}
-          />
-        }
-      >
-        <VictoryAxis
-          tickValues={timestamps.map((timestamp) => new Date(timestamp))}
-          tickFormat={(x) => new Date(x).getFullYear()}
-        />
-        <VictoryLine
-          style={{
-            data: { stroke: "tomato" },
-          }}
-          data={data}
-        />
-      </VictoryChart>
+      <Text style={styles.text}>First Reading: {firstReading}</Text>
+      <Text style={styles.text}>First Timestamp: {firstTimestamp}</Text>
     </View>
   );
 };
+
+// Add some basic styles to ensure text is visible
+const styles = StyleSheet.create({
+  //   container: {
+  //     padding: 16,
+  //     backgroundColor: "black", // Ensure the background color contrasts with the text color
+  //   },
+  text: {
+    fontSize: 16,
+    color: "white", // Ensure text color is visible on the background
+  },
+});
