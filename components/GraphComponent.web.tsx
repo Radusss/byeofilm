@@ -1,4 +1,3 @@
-//GraphComponent.tsx
 import React from "react";
 import {
   VictoryChart,
@@ -13,6 +12,7 @@ interface GraphProps {
   timestamps: string[];
   selectedDomain: any;
   zoomDomain: any;
+  threshold: number;
   onZoomDomainChange(domain: any): void;
   onBrushDomainChange(domain: any): void;
 }
@@ -22,6 +22,7 @@ export const Graph: React.FC<GraphProps> = ({
   timestamps,
   selectedDomain,
   zoomDomain,
+  threshold,
   onZoomDomainChange,
   onBrushDomainChange,
 }) => {
@@ -34,57 +35,72 @@ export const Graph: React.FC<GraphProps> = ({
   });
 
   return (
-    <div>
-      <VictoryChart
-        width={550}
-        height={300}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryZoomContainer
-            responsive={false}
-            //zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={onZoomDomainChange}
+    <div
+      style={{
+        backgroundColor: "rgba(169, 169, 169, 0.75)", // grey background with 0.5 transparency
+        padding: 20, // optional: for some spacing
+        borderRadius: 10, // optional: if you want rounded corners
+      }}
+    >
+      <div>
+        <VictoryChart
+          width={550}
+          height={300}
+          scale={{ x: "time" }}
+          containerComponent={
+            <VictoryZoomContainer
+              responsive={false}
+              zoomDomain={zoomDomain}
+              onZoomDomainChange={onZoomDomainChange}
+            />
+          }
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: "tomato" },
+            }}
+            data={data}
           />
-        }
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: "tomato" },
-          }}
-          data={data}
-        />
-      </VictoryChart>
-
-      <VictoryChart
-        width={550}
-        height={90}
-        scale={{ x: "time" }}
-        padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-        containerComponent={
-          <VictoryBrushContainer
-            responsive={false}
-            brushDomain={selectedDomain}
-            onBrushDomainChange={onBrushDomainChange}
-            brushStyle={{
-              stroke: "transparent",
-              fill: "white",
-              fillOpacity: 0.1,
+          {/* Threshold line */}
+          <VictoryLine
+            data={[
+              { x: new Date(timestamps[0]), y: threshold },
+              { x: new Date(timestamps[timestamps.length - 1]), y: threshold },
+            ]}
+            style={{
+              data: { stroke: "#404258", opacity: 0.3 },
             }}
           />
-        }
-      >
-        <VictoryAxis
-          tickValues={timestamps.map((timestamp) => new Date(timestamp))}
-          tickFormat={(x) => new Date(x).getFullYear()}
-        />
-        <VictoryLine
-          style={{
-            data: { stroke: "tomato" },
-          }}
-          data={data}
-        />
-      </VictoryChart>
+        </VictoryChart>
+
+        <VictoryChart
+          width={550}
+          height={90}
+          scale={{ x: "time" }}
+          padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+          containerComponent={
+            <VictoryBrushContainer
+              responsive={false}
+              brushDomain={selectedDomain}
+              brushDimension="x"
+              onBrushDomainChange={onBrushDomainChange}
+              brushStyle={{
+                stroke: "transparent",
+                fill: "black",
+                fillOpacity: 0.1,
+              }}
+            />
+          }
+        >
+          <VictoryAxis />
+          <VictoryLine
+            style={{
+              data: { stroke: "tomato" },
+            }}
+            data={data}
+          />
+        </VictoryChart>
+      </div>
     </div>
   );
 };

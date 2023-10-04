@@ -1,33 +1,138 @@
+// import React from "react";
+// import { View } from "react-native";
+// import {
+//   VictoryChart,
+//   VictoryLine,
+//   VictoryAxis,
+//   VictoryZoomContainer,
+//   VictoryTheme,
+// } from "victory-native";
+
+// interface GraphProps {
+//   readings: string[];
+//   timestamps: string[];
+//   threshold: number;
+// }
+
+// export const Graph: React.FC<GraphProps> = ({
+//   readings,
+//   timestamps,
+//   threshold,
+// }) => {
+//   // Convert data to the format expected by VictoryLine
+//   const data = timestamps.map((timestamp, index) => {
+//     return {
+//       x: new Date(timestamp), // converting timestamp to Date object
+//       y: parseFloat(readings[index]), // converting reading to number
+//     };
+//   });
+
+//   return (
+//     <View>
+//       <VictoryChart
+//         //theme={VictoryTheme.material}
+//         scale={{ x: "time" }}
+//         // Adding VictoryZoomContainer as the containerComponent
+//         containerComponent={<VictoryZoomContainer zoomDimension="x" />}
+//       >
+//         {timestamps.length > 0 && (
+//           <VictoryLine
+//             data={[
+//               { x: new Date(timestamps[0]), y: threshold },
+//               { x: new Date(timestamps[timestamps.length - 1]), y: threshold },
+//             ]}
+//             style={{
+//               data: { stroke: "gray", opacity: 0.5 },
+//             }}
+//           />
+//         )}
+
+//         <VictoryAxis
+//           tickFormat={(x) => {
+//             const date = new Date(x);
+//             return `${date.getMonth() + 1}/${date.getDate()}`;
+//           }}
+//         />
+//         <VictoryAxis dependentAxis />
+//         <VictoryLine
+//           style={{
+//             data: { stroke: "tomato" },
+//           }}
+//           data={data}
+//         />
+//       </VictoryChart>
+//     </View>
+//   );
+// };
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
+import {
+  VictoryChart,
+  VictoryLine,
+  VictoryAxis,
+  VictoryZoomContainer,
+  VictoryTheme,
+} from "victory-native";
 
 interface GraphProps {
   readings: string[];
   timestamps: string[];
+  threshold: number;
 }
 
-export const Graph: React.FC<GraphProps> = ({ readings, timestamps }) => {
-  // Check if readings and timestamps are not empty
-  const firstReading = readings.length > 0 ? readings[0] : "No readings";
-  const firstTimestamp =
-    timestamps.length > 0 ? timestamps[0] : "No timestamps";
+export const Graph: React.FC<GraphProps> = ({
+  readings,
+  timestamps,
+  threshold,
+}) => {
+  // Convert data to the format expected by VictoryLine
+  const data = timestamps.map((timestamp, index) => {
+    return {
+      x: new Date(timestamp), // converting timestamp to Date object
+      y: parseFloat(readings[index]), // converting reading to number
+    };
+  });
 
   return (
-    <View>
-      <Text style={styles.text}>First Reading: {firstReading}</Text>
-      <Text style={styles.text}>First Timestamp: {firstTimestamp}</Text>
+    <View
+      style={{
+        backgroundColor: "rgba(160, 160, 160, 0.8)", // grey background with 0.5 transparency
+        padding: 20, // optional: for some spacing
+        borderRadius: 70, // optional: if you want rounded corners
+      }}
+    >
+      <VictoryChart
+        //theme={VictoryTheme.material}
+        scale={{ x: "time" }}
+        // Adding VictoryZoomContainer as the containerComponent
+        containerComponent={<VictoryZoomContainer zoomDimension="x" />}
+      >
+        {timestamps.length > 0 && (
+          <VictoryLine
+            data={[
+              { x: new Date(timestamps[0]), y: threshold },
+              { x: new Date(timestamps[timestamps.length - 1]), y: threshold },
+            ]}
+            style={{
+              data: { stroke: "#404258", opacity: 0.5 },
+            }}
+          />
+        )}
+
+        <VictoryAxis
+          tickFormat={(x) => {
+            const date = new Date(x);
+            return `${date.getMonth() + 1}/${date.getDate()}`;
+          }}
+        />
+        <VictoryAxis dependentAxis />
+        <VictoryLine
+          style={{
+            data: { stroke: "tomato" },
+          }}
+          data={data}
+        />
+      </VictoryChart>
     </View>
   );
 };
-
-// Add some basic styles to ensure text is visible
-const styles = StyleSheet.create({
-  //   container: {
-  //     padding: 16,
-  //     backgroundColor: "black", // Ensure the background color contrasts with the text color
-  //   },
-  text: {
-    fontSize: 16,
-    color: "white", // Ensure text color is visible on the background
-  },
-});

@@ -1,18 +1,8 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { Image, useColorScheme, Pressable } from "react-native"; // Import Image from react-native
+import { Link, Tabs } from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-import Colors from '../../constants/Colors';
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import Colors from "../../constants/Colors";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -20,13 +10,27 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "",
+          tabBarIcon: (
+            { color, focused } // passing the focused prop to tabBarIcon
+          ) => (
+            <Image
+              source={require("../../assets/images/home.png")} // Update source to your image file for the first tab
+              style={{
+                width: 28,
+                height: 28,
+                // tintColor: focused
+                //   ? Colors[colorScheme ?? "light"].tint
+                //   : color, // Apply tint color based on tab focused state
+              }}
+            />
+          ),
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -34,7 +38,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
+                    color={Colors[colorScheme ?? "light"].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
@@ -46,8 +50,21 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "",
+          tabBarIcon: (
+            { color, focused } // passing the focused prop to tabBarIcon
+          ) => (
+            <Image
+              source={require("../../assets/images/analytics.png")}
+              style={{
+                width: 28,
+                height: 28,
+                // tintColor: focused
+                //   ? Colors[colorScheme ?? "light"].tint
+                //   : color, // Apply tint color based on tab focused state
+              }}
+            />
+          ),
         }}
       />
     </Tabs>
