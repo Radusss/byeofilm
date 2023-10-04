@@ -33,7 +33,9 @@ export const Graph: React.FC<GraphProps> = ({
       y: parseFloat(readings[index]), // converting reading to number
     };
   });
-
+  if (data.length === 0) {
+    return null;
+  }
   return (
     <div
       style={{
@@ -45,8 +47,7 @@ export const Graph: React.FC<GraphProps> = ({
       <div>
         <VictoryChart
           width={550}
-          height={300}
-          scale={{ x: "time" }}
+          height={250}
           containerComponent={
             <VictoryZoomContainer
               responsive={false}
@@ -67,6 +68,7 @@ export const Graph: React.FC<GraphProps> = ({
               { x: new Date(timestamps[0]), y: threshold },
               { x: new Date(timestamps[timestamps.length - 1]), y: threshold },
             ]}
+            //y={() => threshold}
             style={{
               data: { stroke: "#404258", opacity: 0.3 },
             }}
@@ -76,7 +78,7 @@ export const Graph: React.FC<GraphProps> = ({
         <VictoryChart
           width={550}
           height={90}
-          scale={{ x: "time" }}
+          scale={{ x: "time", y: "linear" }}
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
           containerComponent={
             <VictoryBrushContainer

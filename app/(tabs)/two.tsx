@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     // Created a new style for the text
-    fontSize: 40,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#fff", // Or any color of your choice
-    marginVertical: 30,
+    marginVertical: 15,
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 1,
     height: 1,
     width: "80%",
   },

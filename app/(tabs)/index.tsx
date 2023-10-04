@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     resizeMode: "contain",
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 10,
     height: 1,
     width: "80%",
   },

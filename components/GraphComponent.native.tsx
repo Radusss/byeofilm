@@ -102,8 +102,10 @@ export const Graph: React.FC<GraphProps> = ({
       }}
     >
       <VictoryChart
+        width={350}
+        //height={1}
         //theme={VictoryTheme.material}
-        scale={{ x: "time" }}
+        //scale={{ x: "time" }}
         // Adding VictoryZoomContainer as the containerComponent
         containerComponent={<VictoryZoomContainer zoomDimension="x" />}
       >
