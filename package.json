@@ -1,6 +1,7 @@
 {
   "name": "byeofilm",
   "main": "expo-router/entry",
+  "homepage": "/app/(tabs)",
   "version": "1.0.0",
   "scripts": {
     "eas-build-pre-install": "npm config set legacy-peer-deps true",
