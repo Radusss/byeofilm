@@ -49,25 +49,25 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
-  // return (
-  //   <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-  //     <Stack>
-  //       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-  //       <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-  //     </Stack>
-  //   </ThemeProvider>
-  // );
   return (
-    <ImageBackground
-      source={require("../assets/images/background.png")}
-      style={{ flex: 1 }}
-    >
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
-      </ThemeProvider>
-    </ImageBackground>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+      </Stack>
+    </ThemeProvider>
   );
+  // return (
+  //   <ImageBackground
+  //     source={require("../assets/images/background.png")}
+  //     style={{ flex: 1 }}
+  //   >
+  //     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+  //       <Stack>
+  //         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+  //         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+  //       </Stack>
+  //     </ThemeProvider>
+  //   </ImageBackground>
+  // );
 }

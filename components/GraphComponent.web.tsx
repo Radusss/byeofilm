@@ -5,6 +5,7 @@ import {
   VictoryAxis,
   VictoryZoomContainer,
   VictoryBrushContainer,
+  VictoryTheme,
 } from "victory";
 
 interface GraphProps {
@@ -73,6 +74,7 @@ export const Graph: React.FC<GraphProps> = ({
               data: { stroke: "#404258", opacity: 0.3 },
             }}
           />
+          {/* <VictoryAxis dependentAxis tickFormat={(tick) => `${tick} mV`} /> */}
         </VictoryChart>
 
         <VictoryChart
@@ -80,6 +82,7 @@ export const Graph: React.FC<GraphProps> = ({
           height={90}
           scale={{ x: "time", y: "linear" }}
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+          // theme={VictoryTheme.material}
           containerComponent={
             <VictoryBrushContainer
               responsive={false}

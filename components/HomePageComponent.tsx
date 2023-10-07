@@ -6,7 +6,7 @@ import DoctorButton from "./DoctorButtonComponent";
 
 export default function AveragePanel({ path }: { path: string }) {
   const { readings, timestamps } = useFetchData();
-
+  const threshold = 2;
   // Calculate the average of the last 10 readings
   const average = useMemo(() => {
     const last10Readings = readings.slice(-10);
@@ -19,17 +19,17 @@ export default function AveragePanel({ path }: { path: string }) {
 
   // Determine the background color and message based on the average
   const backgroundColor =
-    parseFloat(average as string) > 250
+    parseFloat(average as string) > threshold
       ? "rgba(255, 0, 0, 0.5)"
       : "rgba(0, 255, 0, 0.5)";
   const message =
-    parseFloat(average as string) > 250
-      ? `Avg last hour: ${average}\n\n Infection detected`
-      : `Avg last hour: ${average}\n\nNo present infection. \n You are doing good!`;
+    parseFloat(average as string) > threshold
+      ? `Avg last 10 readings: ${average} mV\n\n Infection detected`
+      : `Avg last 10 readings: ${average} mV\n\nNo present infection. \n You are doing good!`;
 
   const getBorderColor = (opacity: number) => {
     const color =
-      parseFloat(average as string) > 250 ? "255, 0, 0" : "0, 255, 0";
+      parseFloat(average as string) > threshold ? "255, 0, 0" : "0, 255, 0";
     return `rgba(${color}, ${opacity})`;
   };
 
@@ -53,7 +53,10 @@ export default function AveragePanel({ path }: { path: string }) {
         <AveragePanelComponent />
       </View>
       <View style={styles.spacing}>
-        <HealthyTip text="Tip: Nuts may help you lose weight and reduce the risk of developing type 2 diabetes and heart disease." />
+        <HealthyTip
+          text="Tip: Nuts may help you lose weight and reduce the risk of developing type 2 diabetes and heart disease."
+          link="https://www.healthline.com/nutrition/nuts-and-weight-loss"
+        />
       </View>
       <View style={styles.spacing}>
         <DoctorButton

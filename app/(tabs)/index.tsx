@@ -6,20 +6,20 @@ import { View } from "../../components/Themed";
 export default function TabOneScreen() {
   return (
     // Wrap your existing components with BackgroundComponent
-    <BackgroundComponent>
-      <View style={styles.container}>
-        <Image
-          source={require("../../assets/images/Logo_main.png")}
-          style={styles.logo}
-        />
-        <View
-          style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-        <AveragePanel path="app/(tabs)/index.tsx" />
-      </View>
-    </BackgroundComponent>
+    //<BackgroundComponent>
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/images/Logo_main_3.png")}
+        style={styles.logo}
+      />
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+      <AveragePanel path="app/(tabs)/index.tsx" />
+    </View>
+    //</BackgroundComponent>
   );
 }
 

@@ -44,24 +44,24 @@
 // });
 import { StyleSheet, Text } from "react-native"; // Updated import
 import BackgroundComponent from "../../components/BackgroundComponent";
-
+import * as Font from "expo-font";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { View } from "../../components/Themed";
 
 export default function TabTwoScreen() {
   return (
-    <BackgroundComponent>
-      <View style={styles.container}>
-        <Text style={styles.textStyle}>Analytics</Text>
-        {/* Replaced Image with Text */}
-        <View
-          style={styles.separator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-        <EditScreenInfo path="app/(tabs)/two.tsx" />
-      </View>
-    </BackgroundComponent>
+    //<BackgroundComponent>
+    <View style={styles.container}>
+      <Text style={styles.textStyle}>Analytics</Text>
+      {/* Replaced Image with Text */}
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    </View>
+    //</BackgroundComponent>
   );
 }
 

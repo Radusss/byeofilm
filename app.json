@@ -12,16 +12,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "platforms": ["ios", "android", "web"],
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1.0.0",
+      "bundleIdentifier": "com.igem.byeofilm"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "userInterfaceStyle": "light"
-      }
+      },
+      "package": "com.igem.byeofilm",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +37,14 @@
     "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fcf20b0a-332a-451a-ade5-c8ac3bbbaa16"
+      }
     }
   }
 }
