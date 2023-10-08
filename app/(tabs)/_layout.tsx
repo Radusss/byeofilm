@@ -76,7 +76,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Colors from "../../constants/Colors";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = "dark";
 
   const openWebURL = () => {
     const url = "https://2023.igem.wiki/groningen/index.html";

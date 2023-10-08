@@ -17,14 +17,21 @@
     "ios": {
       "supportsTablet": true,
       "buildNumber": "1.0.0",
-      "bundleIdentifier": "com.igem.byeofilm"
+      "bundleIdentifier": "com.igem.byeofilm",
+      "userInterfaceStyle": "dark",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff",
+        "userInterfaceStyle": "dark"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "userInterfaceStyle": "light"
+        "userInterfaceStyle": "dark"
       },
+      "userInterfaceStyle": "dark",
       "package": "com.igem.byeofilm",
       "versionCode": 1
     },
@@ -32,7 +39,12 @@
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png",
-      "userInterfaceStyle": "light"
+      "userInterfaceStyle": "dark",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff",
+        "userInterfaceStyle": "dark"
+      }
     },
     "plugins": ["expo-router"],
     "experiments": {
