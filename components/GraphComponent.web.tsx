@@ -42,7 +42,7 @@ export const Graph: React.FC<GraphProps> = ({
       style={{
         backgroundColor: "rgba(169, 169, 169, 0.75)", // grey background with 0.5 transparency
         padding: 20, // optional: for some spacing
-        borderRadius: 10, // optional: if you want rounded corners
+        borderRadius: 10,
       }}
     >
       <div>
@@ -63,18 +63,15 @@ export const Graph: React.FC<GraphProps> = ({
             }}
             data={data}
           />
-          {/* Threshold line */}
           <VictoryLine
             data={[
               { x: new Date(timestamps[0]), y: threshold },
               { x: new Date(timestamps[timestamps.length - 1]), y: threshold },
             ]}
-            //y={() => threshold}
             style={{
               data: { stroke: "#404258", opacity: 0.3 },
             }}
           />
-          {/* <VictoryAxis dependentAxis tickFormat={(tick) => `${tick} mV`} /> */}
         </VictoryChart>
 
         <VictoryChart
@@ -82,7 +79,6 @@ export const Graph: React.FC<GraphProps> = ({
           height={90}
           scale={{ x: "time", y: "linear" }}
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-          // theme={VictoryTheme.material}
           containerComponent={
             <VictoryBrushContainer
               responsive={false}

@@ -8,7 +8,7 @@ interface BackgroundComponentProps {
 
 const BackgroundComponent = ({ children }: BackgroundComponentProps) => (
   <ImageBackground
-    source={require("../assets/images/background.png")} // Adjust the path to your image
+    source={require("../assets/images/background.png")}
     style={styles.backgroundImage}
   >
     {children}
@@ -18,7 +18,7 @@ const BackgroundComponent = ({ children }: BackgroundComponentProps) => (
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // or 'stretch'
+    resizeMode: "cover",
   },
 });
 

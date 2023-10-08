@@ -47,7 +47,6 @@ export default function EditScreenInfo({ path }: { path: string }) {
         lastReading={readings[readings.length - 1]}
         threshold={threshold}
       />
-      {/* <HealthyTip text="Hello, World!" /> */}
     </View>
   );
 }
@@ -55,7 +54,6 @@ export default function EditScreenInfo({ path }: { path: string }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: wp("1%"), // Example of usage for padding
+    padding: wp("1%"),
   },
-  // Add more styles as needed
 });

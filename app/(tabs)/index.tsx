@@ -5,7 +5,7 @@ import { View } from "../../components/Themed";
 
 export default function TabOneScreen() {
   return (
-    // Wrap your existing components with BackgroundComponent
+    // Wrap existing components with BackgroundComponent
     //<BackgroundComponent>
     <View style={styles.container}>
       <Image

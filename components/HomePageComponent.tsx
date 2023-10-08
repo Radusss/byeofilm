@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   spacing: {
-    marginVertical: 10, // Adjust this value to get the desired spacing
+    marginVertical: 10,
     alignItems: "center", // Center children along the cross-axis (horizontal)
     justifyContent: "center", // Center children along the main-axis (vertical)
   },
